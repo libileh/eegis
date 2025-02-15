@@ -1,0 +1,19 @@
+# eegis
+
+###
+
+# group: notif
+# @name Post
+POST http://localhost:9103/v1/notifications/user-confirmation
+Content-Type: application/json
+
+{
+  "recipient" : "user57@qoraalhub.com",
+  "subject" : "Welcome to Qoraal Hub - Confirm Your Email",
+  "content" : {
+    "name" : "user57@qoraalhub.com",
+    "confirmationLink" : "http://localhost:3000/confirm?token=7cf0a7d7b8e8ffdb1a8675fa9075ad94f608d7786fa86405ca49cef89722f583"
+  },
+  "type" : "verification",
+  "status" : "pending"
+}

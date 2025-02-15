@@ -1,0 +1,73 @@
+
+###
+# group: users
+# @name User by ID
+GET {{local}}/v1/users/0f727094-314d-4283-9f0b-101f6c906525
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjE3MzYxNjEwMjAsImlhdCI6MTczNTkwMTgyMCwiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzM1OTAxODIwLCJzdWIiOiIwZjcyNzA5NC0zMTRkLTQyODMtOWYwYi0xMDFmNmM5MDY1MjUifQ.SMAfZMXqe8Ijm5ZDeGeZWjTmJMQc1m1hET55dpkviEA
+
+> {%
+    client.test("Response status should be 200", () => {
+        client.assert(response.status === 200, "Expected status 200");
+    });
+
+    client.test("User ID should match", () => {
+        let responseBody;
+
+        // Check if response.body is a string or an object
+        if (typeof response.body === "string") {
+            responseBody = JSON.parse(response.body);
+        } else {
+            responseBody = response.body;
+        }
+
+        client.assert(responseBody.data.id === "0f727094-314d-4283-9f0b-101f6c906525", "User ID mismatch");
+    });
+    client.test("Username should not be empty", () => {
+        let responseBody
+        // Check if response.body is a string or an object
+        if (typeof response.body === "string") {
+            responseBody = JSON.parse(response.body);
+        } else {
+            responseBody = response.body;
+        }
+        client.assert(responseBody.data.username.length > 0, "Username should not be empty");
+    });
+    client.test("Email format should be valid", () => {
+        let responseBody = response.body;
+        let emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
+        client.assert(emailRegex.test(responseBody.data.email), "Invalid email format");
+    });
+%}
+
+###
+# group: users
+# @name Follow Usern
+PUT {{local}}/v1/users/0f727094-314d-4283-9f0b-101f6c906525/follow
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjE3MzYxNjEwMjAsImlhdCI6MTczNTkwMTgyMCwiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzM1OTAxODIwLCJzdWIiOiIwZjcyNzA5NC0zMTRkLTQyODMtOWYwYi0xMDFmNmM5MDY1MjUifQ.SMAfZMXqe8Ijm5ZDeGeZWjTmJMQc1m1hET55dpkviEA
+
+###
+# group: users
+# @name Unfollow User
+PUT {{local}}/v1/users/dfb5ac21-0a68-4077-a4e5-72c6417ba82f/unfollow
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjE3MzYxNjEwMjAsImlhdCI6MTczNTkwMTgyMCwiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzM1OTAxODIwLCJzdWIiOiIwZjcyNzA5NC0zMTRkLTQyODMtOWYwYi0xMDFmNmM5MDY1MjUifQ.SMAfZMXqe8Ijm5ZDeGeZWjTmJMQc1m1hET55dpkviEA
+
+###
+# group: users
+# @name GET User Feed
+GET {{local}}/v1/users/0f727094-314d-4283-9f0b-101f6c906525/feeds?limit=15&offset=1&sort=asc&search=Home
+Content-Type: application/json
+Accept: application/json
+
+
+###
+# group: users
+# @name Activate User
+PUT {{local}}/v1/users/activate/41996f41ef9621f5764f9e0b3db9a4aed931d6d1d56b2ba362919844355ad320
+Content-Type: application/json
+Accept: application/json

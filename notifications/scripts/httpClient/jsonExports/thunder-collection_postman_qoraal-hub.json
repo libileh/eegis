@@ -1,0 +1,269 @@
+{
+    "info": {
+        "_postman_id": "379685b6-c7a0-4918-9dee-a4d4cfd724f7",
+        "name": "eegis",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "post",
+            "item": [
+                {
+                    "name": "Post",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9100/v1/posts",
+                            "path": [
+                                "v1",
+                                "posts"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9100"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"title\": \"post1\"\n  \n}"
+                        }
+                    }
+                },
+                {
+                    "name": " Post by ID",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9100/v1/posts/24ec6b33-8613-4b6c-875d-e0756e24b0b8",
+                            "path": [
+                                "v1",
+                                "posts",
+                                "24ec6b33-8613-4b6c-875d-e0756e24b0b8"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9100"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": " All POSTS",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9100/v1/posts",
+                            "path": [
+                                "v1",
+                                "posts"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9100"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Post",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9100/v1/posts/24ec6b33-8613-4b6c-875d-e0756e24b0b8",
+                            "path": [
+                                "v1",
+                                "posts",
+                                "24ec6b33-8613-4b6c-875d-e0756e24b0b8"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9100"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "comments",
+            "item": [
+                {
+                    "name": "Comments",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9100/v1/comments",
+                            "path": [
+                                "v1",
+                                "comments"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9100"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"content\": \"comment-User0\",\n  \"post_id\": \"354546f8-0960-4d54-93aa-5c14c5b57706\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Comments By PostId",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9100/v1/comments/354546f8-0960-4d54-93aa-5c14c5b57706",
+                            "path": [
+                                "v1",
+                                "comments",
+                                "354546f8-0960-4d54-93aa-5c14c5b57706"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9100"
+                        },
+                        "header": [
+                            {
+                                "key": "User-Agent",
+                                "value": "Thunder Client (https://www.thunderclient.com)",
+                                "disabled": true
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"content\": \"comment-User0\",\n  \"post_id\": \"354546f8-0960-4d54-93aa-5c14c5b57706\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "health",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:9100/v1/health",
+                    "path": [
+                        "v1",
+                        "health"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "9100"
+                }
+            }
+        }
+    ]
+}
