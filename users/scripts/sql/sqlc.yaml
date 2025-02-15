@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - schema: "./schemas/*.sql" # Include all SQL files in the schemas directory
+    queries: "./queries"
+    engine: "postgresql"
+    gen:
+      go:
+        out: "../../internal/infra/persistence/database"
+        package: "database" # Set the Go package name (optional but recommended)
