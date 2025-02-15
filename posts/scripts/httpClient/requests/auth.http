@@ -1,0 +1,13 @@
+
+###
+# group: auth
+# @name authenticate
+POST {{users}}/v1/auth/token
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email" : "user1@qoraal.com",
+  "password": "password"
+}
+
