@@ -34,9 +34,10 @@ type CtxUser struct {
 	ContextRole CtxRole
 }
 
-func MapToCtxUser(roleValue float64) (CtxRole, error) {
+func MapToCtxRole(roleValue float64) (CtxRole, error) {
 	// Map the role value to a CtxRole
 	var ctxRole CtxRole
+
 	switch int16(roleValue) {
 	case ADMIN.Value:
 		ctxRole = ADMIN

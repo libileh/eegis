@@ -86,13 +86,7 @@ func (aut *JWTAuthenticator) ExtractUserFromToken(r *http.Request) (*CtxUser, er
 		return nil, fmt.Errorf("invalid user ID: %v", err)
 	}
 
-	// Parse role from claims
-	roleValue, ok := claims["role"].(float64) // JWT numbers are decoded as float64
-	if !ok {
-		return nil, fmt.Errorf("invalid role format")
-	}
-
-	ctxRole, err := MapToCtxUser(roleValue)
+	ctxRole, err := ExtractRole(claims)
 	if err != nil {
 		return nil, err
 	}
@@ -102,6 +96,25 @@ func (aut *JWTAuthenticator) ExtractUserFromToken(r *http.Request) (*CtxUser, er
 		ID:          userId,
 		ContextRole: ctxRole,
 	}, nil
+}
+
+// ExtractRole safely extracts a CtxRole from JWT claims.
+// It expects the "role" claim to be a map with a "Value" field.
+func ExtractRole(claims jwt.MapClaims) (CtxRole, error) {
+	roleClaim, exists := claims["role"]
+	if !exists {
+		return CtxRole{}, fmt.Errorf("role claim missing")
+	}
+	// The role claim is expected to be a map[string]interface{}.
+	roleMap, ok := roleClaim.(map[string]interface{})
+	if !ok {
+		return CtxRole{}, fmt.Errorf("role claim not in expected format, got: %T", roleClaim)
+	}
+	roleValue, ok := roleMap["Value"].(float64)
+	if !ok {
+		return CtxRole{}, fmt.Errorf("role value is not a number, got: %T", roleMap["Value"])
+	}
+	return MapToCtxRole(roleValue)
 }
 
 // AuthMiddleware returns the HTTP handler for the AuthTokenMiddleware.
