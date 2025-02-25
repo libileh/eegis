@@ -1,0 +1,49 @@
+
+# eegis
+
+###
+# group: Topics
+# @name CREATE Topics
+POST {{topics}}/v1/topics
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjk2MjgxNDgyOTQsImlhdCI6MTc0MDE2MDQ2NywiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzQwMTYwNDY3LCJyb2xlIjp7IlZhbHVlIjoxLCJEZXNjcmlwdGlvbiI6InVzZXIifSwic3ViIjoiYzJlM2Y1OTUtZDM0NS00NGE0LWIzMzgtOTI3ZGY3ZGJjY2UzIn0.qMYePSTHu4J4QlM_pUGLQYiiE4d23jPRcOTe913rtb0
+
+{
+  "name": "topic 3",
+  "description": "description 3"
+}
+
+###
+# group: Topics
+# @name GET Topic by Name
+GET {{topics}}/v1/topics/topic 1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjk2MjgxNDgyOTQsImlhdCI6MTc0MDE2MDQ2NywiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzQwMTYwNDY3LCJyb2xlIjp7IlZhbHVlIjoxLCJEZXNjcmlwdGlvbiI6InVzZXIifSwic3ViIjoiYzJlM2Y1OTUtZDM0NS00NGE0LWIzMzgtOTI3ZGY3ZGJjY2UzIn0.qMYePSTHu4J4QlM_pUGLQYiiE4d23jPRcOTe913rtb0
+
+
+###
+# group: Topics
+# @name GET Follower Topics
+GET {{topics}}/v1/users/c2e3f595-d345-44a4-b338-927df7dbcce3/topics
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjk2MjgxNDgyOTQsImlhdCI6MTc0MDE2MDQ2NywiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzQwMTYwNDY3LCJyb2xlIjp7IlZhbHVlIjoxLCJEZXNjcmlwdGlvbiI6InVzZXIifSwic3ViIjoiYzJlM2Y1OTUtZDM0NS00NGE0LWIzMzgtOTI3ZGY3ZGJjY2UzIn0.qMYePSTHu4J4QlM_pUGLQYiiE4d23jPRcOTe913rtb0
+
+
+###
+# group: Topics
+# @name GET All Topics
+GET {{topics}}/v1/topics
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjk2MjgxNDgyOTQsImlhdCI6MTc0MDE2MDQ2NywiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzQwMTYwNDY3LCJyb2xlIjp7IlZhbHVlIjoxLCJEZXNjcmlwdGlvbiI6InVzZXIifSwic3ViIjoiYzJlM2Y1OTUtZDM0NS00NGE0LWIzMzgtOTI3ZGY3ZGJjY2UzIn0.qMYePSTHu4J4QlM_pUGLQYiiE4d23jPRcOTe913rtb0
+
+###
+# group: Topics
+# @name FOLLOW Topic
+POST {{topics}}/v1/users/c2e3f595-d345-44a4-b338-927df7dbcce3/topics/9e98291a-c6b3-42a2-abd8-d3a47955a944/follow
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJxb3JhYWxodWIiLCJleHAiOjk2Mjg0NjI2MzYsImlhdCI6MTc0MDQ3NDgwOCwiaXNzIjoicW9yYWFsaHViIiwibmJmIjoxNzQwNDc0ODA4LCJyb2xlIjp7IlZhbHVlIjoxLCJEZXNjcmlwdGlvbiI6InVzZXIifSwic3ViIjoiYzJlM2Y1OTUtZDM0NS00NGE0LWIzMzgtOTI3ZGY3ZGJjY2UzIn0.I6zFQEl45fwBO5JN02qJITQ167mOAiD1xF9HbDn1uMs
