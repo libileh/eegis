@@ -39,6 +39,7 @@ func (api *PostApi) CreatePostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *PostApi) GetPostByIdHandler(w http.ResponseWriter, r *http.Request) {
+
 	post, ok := r.Context().Value("post").(*domain.Post)
 	if !ok {
 		api.HttpError.BadRequestResponse(w, r, "Unable to find post")
@@ -50,7 +51,6 @@ func (api *PostApi) GetPostByIdHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *PostApi) getAllPosts(w http.ResponseWriter, r *http.Request) {
-
 	posts, customErr := api.Service.PostService.PostRepo.GetAllPosts(r.Context())
 	if customErr != nil {
 		api.HttpError.HandleErrorFromDB(w, r, customErr)

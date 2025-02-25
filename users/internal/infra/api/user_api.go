@@ -75,8 +75,8 @@ func (api *UserApi) mountUserRoutes(r chi.Router) {
 		ru.Route("/{userId}", func(r chi.Router) {
 			r.Use(api.Auth.AuthMiddleware)
 			r.Get("/", api.GetUserByIdHandler)
-			r.Put("/follow", api.followUserHandler)
-			r.Put("/unfollow", api.unfollowUserHandler)
+			r.Post("/follow/{topicId}", api.followTopicHandler)
+			r.Delete("/unfollow", api.unfollowTopicHandler)
 			//r.Get("/feeds", api.getUserFeedHandler)
 			r.Get("/role-precedence", api.checkRolePrecedenceHandler) // New endpoint
 		})
@@ -88,10 +88,10 @@ func (api *UserApi) mountAuthRoutes(r chi.Router) {
 	r.Route("/v1/auth", func(ra chi.Router) {
 		ra.Post("/users", api.RegisterUserHandler)
 		ra.Post("/token", api.generateTokenHandler)
+		ra.Get("/token/refresh", api.RefreshTokenHandler)
 	})
 }
 
-// Helper functions
 func ValidateID(r *http.Request, idParam string) (*uuid.UUID, error) {
 	uuidParam := chi.URLParam(r, idParam)
 	id, err := uuid.Parse(uuidParam)

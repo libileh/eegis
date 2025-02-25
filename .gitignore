@@ -1,9 +1,10 @@
 .idea/
 .qodo
 tree*.txt
-./posts/.env
-./users/.env
-./notifications/.env
+posts/.env
+users/.env
+notifications/.env
+topics/.env
 .eegis.env
 
 secrets

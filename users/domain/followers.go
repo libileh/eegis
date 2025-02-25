@@ -7,14 +7,17 @@ import (
 	"time"
 )
 
+type Topic struct {
+	Id          uuid.UUID `json:"id"`
+	Name        string    `json:"title"`
+	Description string    `json:"description"`
+}
+
 // swagger:model Follower
 type Follower struct {
-	// The unique identifier of the user being followed
-	UserId uuid.UUID `json:"user_id"`
-	// The unique identifier of the follower
+	UserId     uuid.UUID `json:"user_id"`
 	FollowerId uuid.UUID `json:"follower_id"`
-	// The time when the follow relationship was created
-	CreatedAt time.Time `json:"created_at"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 func DbToFollower(dbFollower *database.Follower) *Follower {

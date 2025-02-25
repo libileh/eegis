@@ -34,13 +34,12 @@ type Post struct {
 	Content   string    `json:"content"`
 	Title     string    `json:"title"`
 	UserID    uuid.UUID `json:"user_id"`
-	Tags      []string  `json:"tags"`
+	Tags      []string  `json:"tags"` //todo replace Tags by list of Topics
 	CreatedAt time.Time `json:"created_at"`
 	Version   int32     `json:"version" validate:"required"`
 	Comments  []Comment `json:"comments"`
 }
 
-// context: post-creation
 func NewPost(payload PostPayload, userID uuid.UUID) (*Post, error) {
 	if len(payload.Title) == 0 || len(payload.Content) == 0 {
 		return nil, errors.New("both title and content are required")

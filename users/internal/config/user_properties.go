@@ -6,11 +6,15 @@ import (
 	"time"
 )
 
+type TopicProperties struct {
+	BaseUrl string `envconfig:"TOPIC_BASE_URL" default:"http://localhost:9104"`
+}
+
 type RedisProperties struct {
-	Addr    string `envconfig:"CACHE_ADDR" default:"gurilab.local:6379"`
-	Pwd     string `envconfig:"CACHE_PASSWORD"`
-	DB      int    `envconfig:"CACHE_DB" default:"0"`
-	Enabled bool   `envconfig:"CACHE_ENABLED" default:"false"`
+	Addr    string `envconfig:"REDIS_CACHE_ADDR" default:"gurilab.local:6379"`
+	Pwd     string `envconfig:"REDIS_CACHE_PASSWORD"`
+	DB      int    `envconfig:"REDIS_CACHE_DB" default:"0"`
+	Enabled bool   `envconfig:"REDIS_CACHE_ENABLED" default:"false"`
 }
 
 type UserProperties struct {
@@ -19,6 +23,7 @@ type UserProperties struct {
 	Version           string `envconfig:"VERSION" default:"0.1"`
 	Redis             RedisProperties
 	NotificationProps NotificationProps
+	Topics            TopicProperties
 }
 
 type NotificationProps struct {

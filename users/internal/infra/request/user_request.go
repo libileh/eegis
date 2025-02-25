@@ -24,3 +24,9 @@ func MapToUser(payload UserRequest) domain.User {
 	}
 	return user
 }
+
+type TopicDTO struct {
+	ID          string `json:"topic_id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}

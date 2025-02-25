@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+/*** TODO replace domain by DTO*/
+
 type PostStore struct {
 	Queries *database.Queries
 }

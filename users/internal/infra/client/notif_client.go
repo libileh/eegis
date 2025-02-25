@@ -9,20 +9,20 @@ import (
 	"net/http"
 )
 
-type HttpNotificationService struct {
+type HttpNotificationClient struct {
 	Props      *config.UserProperties
 	HTTPClient *http.Client
 }
 
-func NewHttpNotifService(props *config.UserProperties) *HttpNotificationService {
-	return &HttpNotificationService{
+func NewHttpNotifService(props *config.UserProperties) *HttpNotificationClient {
+	return &HttpNotificationClient{
 		Props:      props,
 		HTTPClient: &http.Client{},
 	}
 }
 
 // SendConfirmationEmail sends a confirmation email to the specified recipient
-func (cl *HttpNotificationService) SendConfirmationEmail(email, token string) error {
+func (cl *HttpNotificationClient) SendConfirmationEmail(email, token string) error {
 	templateData := request.TemplateDataDTO{
 		Name: email,
 		ConfirmationLink: fmt.Sprintf("%s/confirm?token=%s",

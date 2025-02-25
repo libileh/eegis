@@ -31,7 +31,6 @@ type PostApi struct {
 	Authenticator *auth.JWTAuthenticator
 }
 
-// In api/post_api.go
 func NewPostApi(props *config.PostProperties, service *application.ServiceManager, logger *zap.SugaredLogger, baseApp *common.App) *PostApi {
 	return &PostApi{
 		Properties:    props,
@@ -98,7 +97,6 @@ func (api *PostApi) timerSleep(next http.Handler) http.Handler {
 	})
 }
 
-// Helper functions
 func ValidateID(r *http.Request, idParam string) (*uuid.UUID, error) {
 	uuidParam := chi.URLParam(r, idParam)
 	id, err := uuid.Parse(uuidParam)

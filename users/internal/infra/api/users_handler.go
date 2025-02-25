@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/libileh/eegis/common/auth"
 	"github.com/libileh/eegis/common/errors"
 	"github.com/libileh/eegis/common/json_utils"
 	"github.com/libileh/eegis/users/domain"
@@ -34,45 +33,6 @@ func (api *UserApi) GetUserByIdHandler(w http.ResponseWriter, r *http.Request) {
 		api.HttpError.InternalServerError(w, r, err.Error())
 		return
 	}
-}
-
-func (api *UserApi) followUserHandler(w http.ResponseWriter, r *http.Request) {
-	follower := r.Context().Value("authedUser").(*auth.CtxUser)
-
-	followedId, err := ValidateID(r, "userId")
-	if err != nil {
-		api.HttpError.BadRequestResponse(w, r, err.Error())
-		return
-	}
-	follow, customErr := api.Service.UserRepoService.FollowerRpo.FollowUser(r.Context(),
-		&domain.Follower{FollowerId: follower.ID, UserId: *followedId})
-	if customErr != nil {
-		api.HttpError.BadRequestResponse(w, r, customErr.Error())
-		return
-	}
-	if err := json_utils.JsonResponse(w, http.StatusOK, follow); err != nil {
-		api.HttpError.InternalServerError(w, r, err.Error())
-	}
-}
-
-func (api *UserApi) unfollowUserHandler(w http.ResponseWriter, r *http.Request) {
-	follower := r.Context().Value("authedUser").(*auth.CtxUser)
-
-	followedId, err := ValidateID(r, "userId")
-	if err != nil {
-		api.HttpError.BadRequestResponse(w, r, err.Error())
-		return
-	}
-	customErr := api.Service.UserRepoService.FollowerRpo.UnfollowUser(
-		r.Context(), &domain.Follower{FollowerId: follower.ID, UserId: *followedId})
-	if customErr != nil {
-		api.HttpError.HandleErrorFromDB(w, r, customErr)
-		return
-	}
-	if err := json_utils.JsonResponse(w, http.StatusNoContent, nil); err != nil {
-		return
-	}
-
 }
 
 func (api *UserApi) activateUserHandler(w http.ResponseWriter, r *http.Request) {

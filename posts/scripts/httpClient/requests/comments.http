@@ -3,7 +3,7 @@
 ###
 # group: comments
 # @name Comments
-POST {{local}}/v1/comments
+POST {{posts}}/v1/comments
 #User-Agent: Thunder Client (https://www.thunderclient.com)
 Content-Type: application/json
 #Accept: application/json
@@ -16,11 +16,11 @@ Content-Type: application/json
 ###
 # group: comments
 # @name Comments By PostId
-GET {{local}}/v1/comments/354546f8-0960-4d54-93aa-5c14c5b57706
+GET {{posts}}/v1/comments/354546f8-0960-4d54-93aa-5c14c5b57706
 #User-Agent: Thunder Client (https://www.thunderclient.com)
 Content-Type: application/json
 #Accept: application/json
 
 ###
 # @name health
-GET {{local}}/v1/health
+GET {{posts}}/v1/health

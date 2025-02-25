@@ -49,8 +49,9 @@ func NewUserApp(logger *zap.SugaredLogger, userProps *config.UserProperties, db 
 	//Cache Repository
 	redisStore := cache.NewRedisStorage(redisCache)
 	userCache := application.NewUserCacheService(redisStore.Users())
-	notifService := client.NewHttpNotifService(userProps)
-	serviceMgmt := application.NewServiceManager(userService, userCache, passwordService, notifService)
+	notifClient := client.NewHttpNotifService(userProps)
+	topicClient := client.NewTopicHTTPClient(userProps, baseApp.Authenticator)
+	serviceMgmt := application.NewServiceManager(userService, userCache, passwordService, notifClient, topicClient)
 
 	// Initialize UserApi with its dependencies
 	apiHandler := &api.UserApi{

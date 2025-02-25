@@ -40,7 +40,7 @@ func (api *UserApi) RegisterUserHandler(w http.ResponseWriter, r *http.Request) 
 	api.Logger.Infow("User registered", "username", user.Username, "email", user.Email)
 
 	// Send confirmation email using Mailtrap API
-	if err := api.Service.NotificationService.SendConfirmationEmail(user.Email, userInvitation.Token); err != nil {
+	if err := api.Service.NotificationClient.SendConfirmationEmail(user.Email, userInvitation.Token); err != nil {
 		api.Logger.Errorw("Failed to send confirmation email", "error", err, "email", user.Email)
 		// If email fails, rollback user creation
 		if err := api.Service.UserRepoService.UserRepo.DeleteUser(r.Context(), *id); err != nil {
