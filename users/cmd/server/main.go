@@ -7,21 +7,44 @@ import (
 	"github.com/libileh/eegis/common/db"
 	"github.com/libileh/eegis/users/internal/config"
 	"go.uber.org/zap"
-	"log"
+	"os"
+	"path/filepath"
 )
 
 func main() {
 	logger := zap.Must(zap.NewProduction()).Sugar()
 	defer logger.Sync()
 
-	//load properties from .env file
-	if err := godotenv.Load(); err != nil {
-		logger.Fatalf("Error loading .env file: %v", err)
+	if err := LoadProperties(); err != nil {
+		logger.Fatalf("Error loading environment file: %v", err)
 	}
 
 	if err := run(logger); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
+}
+
+func LoadProperties() error {
+	// Check if the .env file exists
+	localEnv := ".env"
+	if _, err := os.Stat(localEnv); os.IsNotExist(err) {
+		// if env file not found, load from home directory
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			return fmt.Errorf("error retrieving home directory: %v", err)
+		}
+
+		envFilePath := filepath.Join(homeDir, ".eegis.env")
+		if err := godotenv.Load(envFilePath); err != nil {
+			return fmt.Errorf("error loading .eegis.env file: %v", err)
+		}
+	} else {
+		// Local load from .env file
+		if err := godotenv.Load(); err != nil {
+			return fmt.Errorf("error loading .env file: %v", err)
+		}
+	}
+	return nil
 }
 
 func run(logger *zap.SugaredLogger) error {
@@ -37,7 +60,6 @@ func run(logger *zap.SugaredLogger) error {
 }
 
 func setupApplication(userProperties *config.UserProperties, logger *zap.SugaredLogger) (*UserApp, error) {
-
 	dbCnx, err := setupDatabase(userProperties.CommonProps.DBURL, logger)
 	if err != nil {
 		return nil, err

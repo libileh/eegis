@@ -1,0 +1,130 @@
+version: '3.8'
+
+services:
+  # Posts Microservice
+  posts:
+    image: libileh/eegis-posts:latest
+    ports:
+      - "9102:9102"  # Expose the posts service port
+    depends_on:
+      - users
+    environment:
+      - VERSION=${VERSION}
+      - PORT=9102
+      - ENV=${ENV}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - USERS_SERVICE_URL=${USERS_SERVICE_URL}
+    secrets:
+      - db_url
+    configs:
+      - source: eegis_env
+        target: /home/appuser/.eegis.env
+    networks:
+      - eegis-network
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+      update_config:
+        parallelism: 1
+        delay: 10s
+
+  # Users Microservice
+  users:
+    image: libileh/eegis-users:latest
+    ports:
+      - "9101:9101"  # Expose the users service port
+    depends_on:
+      - notifications
+      - redis
+    environment:
+      - VERSION=${VERSION}
+      - PORT=9101
+      - ENV=${ENV}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - CACHE_ENABLED=${CACHE_ENABLED}
+      - CACHE_ADDR=${CACHE_ADDR}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      - AUTH_USERNAME=${AUTH_USERNAME}
+      - MAILTRAP_FROM_EMAIL=${MAILTRAP_FROM_EMAIL}
+      - NOTIFICATION_BASE_URL=${NOTIFICATION_BASE_URL}
+    secrets:
+      - db_url
+      - mailtrap
+    configs:
+      - source: eegis_env
+        target: /home/appuser/.eegis.env
+    networks:
+      - eegis-network
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+      update_config:
+        parallelism: 1
+        delay: 10s
+
+  # Notifications Microservice
+  notifications:
+    image: libileh/eegis-notifications:latest
+    ports:
+      - "9103:9103"  # Expose the notifications service port
+    environment:
+      - VERSION=${VERSION}
+      - PORT=9103
+      - ENV=${ENV}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - MAILTRAP_FROM_EMAIL=${MAILTRAP_FROM_EMAIL}
+    secrets:
+      - db_url
+      - mailtrap
+    configs:
+      - source: eegis_env
+        target: /home/appuser/.eegis.env
+    networks:
+      - eegis-network
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+      update_config:
+        parallelism: 1
+        delay: 10s
+
+  # Redis Service
+  redis:
+    image: redis:7.4.1-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+    networks:
+      - eegis-network
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+
+# Networks
+networks:
+  eegis-network:
+    external: true
+
+# Secrets for sensitive data
+secrets:
+  db_url:
+    file: ./secrets/db_url.txt
+  mailtrap:
+    file: ./secrets/mailtrap.txt
+
+# Configs for shared configurations (non-sensitive)
+configs:
+  eegis_env:
+    file: ${HOME}/.eegis.env

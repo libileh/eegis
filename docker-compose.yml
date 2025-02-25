@@ -1,0 +1,81 @@
+services:
+  # Posts Microservice
+  posts:
+    image: libileh/eegis-posts:latest
+    ports:
+      - "9101:9101"  # Expose the posts service port
+    depends_on:
+      - users
+    environment:
+      - VERSION=${VERSION}
+      - PORT=9101
+      - DB_URL=postgres://lob:password@postgres:5432/eegis_db?sslmode=disable
+      - ENV=${ENV}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - USERS_SERVICE_URL=${USERS_SERVICE_URL}
+    volumes:
+      - ${HOME}/.eegis.env:/home/appuser/.eegis.env:ro
+    networks:
+      - eegis-cpz-network
+
+  # Users Microservice
+  users:
+    build:
+      context: .
+      dockerfile: ./users/docker/Dockerfile
+    ports:
+      - "9102:9102"
+    depends_on:
+      - notifications
+      - redis
+    environment:
+      - VERSION=${VERSION}
+      - PORT=9102
+      - DB_URL=${DB_URL}
+      - ENV=${ENV}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - REDIS_CACHE_ENABLED=${REDIS_CACHE_ENABLED}
+      - REDIS_CACHE_ADDR=${REDIS_CACHE_ADDR}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      - AUTH_USERNAME=${AUTH_USERNAME}
+      - MAILTRAP_URL=${MAILTRAP_URL}
+      - MAILTRAP_API_KEY=${MAILTRAP_API_KEY}
+      - MAILTRAP_FROM_EMAIL=${MAILTRAP_FROM_EMAIL}
+      - NOTIFICATION_BASE_URL=${NOTIFICATION_BASE_URL}
+    volumes:
+      - ${HOME}/.eegis.env:/home/appuser/.eegis.env:ro
+    networks:
+      - eegis-cpz-network
+
+  # Notifications Microservice
+  notifications:
+    image: libileh/eegis-notifications:latest
+    ports:
+      - "9103:9103"  # Expose the notifications service port
+    environment:
+      - VERSION=${VERSION}
+      - PORT=9103
+      - ENV=${ENV}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - MAILTRAP_URL=${MAILTRAP_URL}
+      - MAILTRAP_API_KEY=${MAILTRAP_API_KEY}
+      - MAILTRAP_FROM_EMAIL=${MAILTRAP_FROM_EMAIL}
+    volumes:
+      - ${HOME}/.eegis.env:/home/appuser/.eegis.env:ro
+    networks:
+      - eegis-cpz-network
+
+  # Redis Service
+  redis:
+    image: redis:7.4.1-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+    networks:
+      - eegis-cpz-network
+
+# Networks
+networks:
+  eegis-cpz-network:
+    driver: bridge
+    external: true
