@@ -7,7 +7,7 @@ require (
 	github.com/go-chi/cors v1.2.1
 	github.com/go-playground/validator/v10 v10.24.0
 	github.com/google/uuid v1.6.0
-	github.com/libileh/eegis/common v1.0.2
+	github.com/libileh/eegis/common v1.0.3
 	go.uber.org/zap v1.27.0
 )
 

@@ -6,28 +6,30 @@ import (
 	"github.com/libileh/eegis/common/auth"
 	"github.com/libileh/eegis/common/json_utils"
 	"github.com/libileh/eegis/posts/domain"
+	"github.com/libileh/eegis/posts/internal/infra/requests"
 	"net/http"
 )
 
 func (api *PostApi) CreatePostHandler(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value("authedUser").(*auth.CtxUser)
 
-	var request domain.PostPayload
+	var request requests.PostPayload
 	if err := json_utils.ReadJson(w, r, &request); err != nil {
 		api.HttpError.BadRequestResponse(w, r, err.Error())
 		return // Add return
 	}
+
 	if err := api.Validate.Struct(request); err != nil {
 		api.HttpError.BadRequestResponse(w, r, err.Error())
 		return // Add return
 	}
 
-	newPost, err := domain.NewPost(request, user.ID)
+	newPost, err := domain.NewPost(request, user)
 	if err != nil {
 		api.HttpError.BadRequestResponse(w, r, err.Error())
 	}
-	id, customErr := api.Service.PostService.PostRepo.Create(r.Context(), newPost)
 
+	id, customErr := api.Service.PostService.PostRepo.Create(r.Context(), newPost)
 	if customErr != nil {
 		api.HttpError.BadRequestResponse(w, r, fmt.Sprintf("post creation failed %q", customErr.Error()))
 		return // Add return

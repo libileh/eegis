@@ -4,7 +4,7 @@ go 1.23.2
 
 //replace github.com/libileh/eegis/common v1.0.1 => ../common
 
-require github.com/libileh/eegis/common v1.0.2
+require github.com/libileh/eegis/common v1.0.3
 
 require (
 	github.com/go-chi/chi/v5 v5.2.1

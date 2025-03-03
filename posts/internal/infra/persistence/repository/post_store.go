@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"github.com/libileh/eegis/common/errors"
+	"github.com/libileh/eegis/posts/application/mapper"
 	"github.com/libileh/eegis/posts/domain"
 	"github.com/libileh/eegis/posts/internal/infra/persistence/database"
 	"log"
@@ -41,7 +42,7 @@ func (p *PostStore) GetPostById(ctx context.Context, id uuid.UUID) (*domain.Post
 	}
 
 	// Convert the database post to a domain post
-	post := domain.DbToPost(dbPost)
+	post := mapper.DbToPost(dbPost)
 
 	// Retrieve and set the comments for the post
 	comments, customErr := p.GetCommentsByPostId(ctx, id)
@@ -70,7 +71,7 @@ func (p *PostStore) GetAllPosts(ctx context.Context) ([]domain.Post, *errors.Cus
 	if err != nil {
 		return nil, errors.HandleDBError(err)
 	}
-	return domain.DbToPosts(posts), nil
+	return mapper.DbToPosts(posts), nil
 }
 
 func (p *PostStore) DeletePost(ctx context.Context, id uuid.UUID) *errors.CustomError {

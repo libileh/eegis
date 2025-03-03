@@ -23,7 +23,9 @@ type NotificationApp struct {
 // NewNotificationApp initializes a new NotificationApp
 func NewNotificationApp(logger *zap.SugaredLogger, props *config.NotificationProperties) *NotificationApp {
 	// Initialize the common App
-	var baseApp = app.NewApp(logger, props.CommonProps, props.Version, nil) // Initialize email sender
+	var baseApp = app.NewApp(logger, props.CommonProps, props.Version, nil)
+
+	// Initialize email sender
 	templManager := template.NewTemplateManager(logger)
 	renderer := template.NewContentRenderer(logger)
 	emailSender := sender.NewEmailSender(logger, props.Email)

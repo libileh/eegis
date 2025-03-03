@@ -3,6 +3,7 @@ package client
 import (
 	"fmt"
 	"github.com/google/uuid"
+	"github.com/libileh/eegis/common/auth"
 	"github.com/libileh/eegis/common/json_utils"
 	"net/http"
 )
@@ -20,9 +21,9 @@ func NewHttpUserService(baseURL string) *HttpUserService {
 }
 
 // CheckRolePrecedence Method to check role precedence
-func (s *HttpUserService) CheckRolePrecedence(userID *uuid.UUID, roleName string) (bool, error) {
+func (s *HttpUserService) CheckRolePrecedence(user *auth.CtxUser) (bool, error) {
 	// Build the request URL
-	url := fmt.Sprintf("%s/v1/users/role-precedence?userId=%s&role=%s", s.BaseURL, userID, roleName)
+	url := fmt.Sprintf("%s/v1/users/role-precedence?userId=%s&role=%s", s.BaseURL, user.ID, user.ContextRole.Description)
 
 	// Send HTTP GET request using the HTTP sender
 	resp, err := s.sendGetRequest(url)

@@ -12,7 +12,7 @@ type EmailSender interface {
 // TemplateManager interface defines the contract for template management
 type TemplateManager interface {
 	RegisterTemplate(templateType string, template *domain.EmailTemplate) error
-	GetTemplate(templateType string) (*domain.EmailTemplate, error)
+	GetTemplate(templateType domain.NotificationType) (*domain.EmailTemplate, error)
 }
 
 // ContentRenderer interface defines the contract for content rendering

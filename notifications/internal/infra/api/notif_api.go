@@ -59,6 +59,6 @@ func (api *NotificationApi) Mount() http.Handler {
 // MountNotificationRoutes mounts the notification routes
 func (api *NotificationApi) MountNotificationRoutes(r chi.Router) {
 	r.Route("/v1/notifications", func(r chi.Router) {
-		r.Post("/user-confirmation", api.HandleNotification)
+		r.Post("/user-confirmation", api.HandleUserRegisterNotification)
 	})
 }

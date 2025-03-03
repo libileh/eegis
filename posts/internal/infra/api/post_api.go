@@ -82,8 +82,8 @@ func (api *PostApi) mountPostRoutes(r chi.Router) {
 		rp.Route("/{postId}", func(r chi.Router) {
 			r.Use(api.postLoaderMiddleware)
 			r.Get("/", api.GetPostByIdHandler)
-			r.Get("/ownership", api.checkPostOwnershipHandler) // New endpoint
 			r.Put("/", api.checkPostOwnership("moderator", api.updatePostHandler))
+			r.Put("/review", api.checkPostOwnership("moderator", api.PostModerationHandler))
 			r.Delete("/", api.checkPostOwnership("admin", api.deletePost))
 		})
 	})

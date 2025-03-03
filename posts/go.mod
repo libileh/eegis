@@ -2,9 +2,9 @@ module github.com/libileh/eegis/posts
 
 go 1.23.2
 
-//replace github.com/libileh/eegis/common v1.0.1 => ../common
+//replace github.com/libileh/eegis/common v1.0.3 => ../common
 
-require github.com/libileh/eegis/common v1.0.2
+require github.com/libileh/eegis/common v1.0.3
 
 require (
 	github.com/go-chi/chi/v5 v5.2.1
@@ -13,6 +13,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
+	github.com/libileh/eegis/common v1.0.3
 	go.uber.org/zap v1.27.0
 )
 

@@ -14,6 +14,6 @@ Content-Type: application/json
     "name" : "user57@qoraalhub.com",
     "confirmationLink" : "http://localhost:3000/confirm?token=7cf0a7d7b8e8ffdb1a8675fa9075ad94f608d7786fa86405ca49cef89722f583"
   },
-  "type" : "verification",
+  "type" : "user-verification",
   "status" : "pending"
 }

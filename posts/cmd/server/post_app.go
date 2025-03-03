@@ -31,7 +31,7 @@ func NewPostApp(logger *zap.SugaredLogger, props *config.PostProperties, db *sql
 	store := repository.NewPostgresStorage(db)
 
 	//Initialize service
-	postService := application.NewPostService(store.Posts(), store.Comments(), store.Feeds())
+	postService := application.NewPostService(store.Posts(), store.Comments(), store.Feeds(), baseApp.EventBus)
 	userService := client.NewHttpUserService(props.UsersServiceURL)
 
 	serviceMgmt := application.NewServiceManager(postService, userService)
