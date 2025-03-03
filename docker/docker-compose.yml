@@ -21,8 +21,8 @@ services:
   # Users Microservice
   users:
     build:
-      context: .
-      dockerfile: ./users/docker/Dockerfile
+      context: ..
+      dockerfile: ../users/docker/Dockerfile
     ports:
       - "9102:9102"
     depends_on:

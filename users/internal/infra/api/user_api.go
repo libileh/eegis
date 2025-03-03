@@ -72,13 +72,13 @@ func (api *UserApi) timerSleep(next http.Handler) http.Handler {
 func (api *UserApi) mountUserRoutes(r chi.Router) {
 
 	r.Route("/v1/users", func(ru chi.Router) {
+		ru.Use(api.Auth.AuthMiddleware)
+		ru.Get("/role-precedence", api.checkRolePrecedenceHandler) // New endpoint
 		ru.Route("/{userId}", func(r chi.Router) {
-			r.Use(api.Auth.AuthMiddleware)
 			r.Get("/", api.GetUserByIdHandler)
 			r.Post("/follow/{topicId}", api.followTopicHandler)
 			r.Delete("/unfollow", api.unfollowTopicHandler)
 			//r.Get("/feeds", api.getUserFeedHandler)
-			r.Get("/role-precedence", api.checkRolePrecedenceHandler) // New endpoint
 		})
 		ru.Put("/activate/{token}", api.activateUserHandler)
 	})

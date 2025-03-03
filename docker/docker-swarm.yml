@@ -120,9 +120,9 @@ networks:
 # Secrets for sensitive data
 secrets:
   db_url:
-    file: ./secrets/db_url.txt
+    file: secrets/db_url.txt
   mailtrap:
-    file: ./secrets/mailtrap.txt
+    file: secrets/mailtrap.txt
 
 # Configs for shared configurations (non-sensitive)
 configs:

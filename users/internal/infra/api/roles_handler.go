@@ -34,7 +34,7 @@ func (api *UserApi) checkRolePrecedenceHandler(w http.ResponseWriter, r *http.Re
 	}
 
 	// Return the result
-	if err := json_utils.JsonResponse(w, http.StatusOK, map[string]bool{"allowed": allowed}); err != nil {
+	if err := json_utils.JsonResponse(w, http.StatusOK, allowed); err != nil {
 		api.HttpError.InternalServerError(w, r, err.Error())
 	}
 

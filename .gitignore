@@ -6,5 +6,5 @@ users/.env
 notifications/.env
 topics/.env
 .eegis.env
-
-secrets
+md
+docker/secrets

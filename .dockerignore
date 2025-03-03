@@ -13,7 +13,7 @@ node_modules
 
 # Ignore Docker-related files
 Dockerfile
-docker-swarm.yml
+docker/docker-swarm.yml
 
 # Ignore IDE and editor configuration files
 .idea

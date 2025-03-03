@@ -71,3 +71,9 @@ Accept: application/json
 PUT {{local}}/v1/users/activate/41996f41ef9621f5764f9e0b3db9a4aed931d6d1d56b2ba362919844355ad320
 Content-Type: application/json
 Accept: application/json
+
+
+
+###
+# @name GET Role Precedence
+GET {{users}}/v1/users/role-precedence?userId=c2e3f595-d345-44a4-b338-927df7dbcce3&role=moderator
