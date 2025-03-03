@@ -5,6 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/libileh/eegis/common/auth"
 	"github.com/libileh/eegis/common/errors"
+	"github.com/libileh/eegis/common/eventbus"
 	"github.com/libileh/eegis/common/monitoring"
 	"github.com/libileh/eegis/common/properties"
 	"github.com/libileh/eegis/common/ratelimiter"
@@ -21,6 +22,7 @@ type App struct {
 	Authenticator *auth.JWTAuthenticator
 	RateLimiter   *ratelimiter.RateLimiter
 	Monitoring    *monitoring.Monitoring
+	EventBus      *eventbus.EventBus
 }
 
 func NewApp(logger *zap.SugaredLogger, loadedProperties *properties.CommonProperties, version string, db *sql.DB) *App {
@@ -56,6 +58,9 @@ func NewApp(logger *zap.SugaredLogger, loadedProperties *properties.CommonProper
 		Health:  monitoring.NewHealth(version, loadedProperties.Env),
 	}
 
+	//event bus
+	eventBus := eventbus.New(logger)
+
 	return &App{
 		Logger:        logger,
 		Properties:    loadedProperties,
@@ -66,5 +71,6 @@ func NewApp(logger *zap.SugaredLogger, loadedProperties *properties.CommonProper
 		Authenticator: authenticator,
 		RateLimiter:   ratelimit,
 		Monitoring:    monitor,
+		EventBus:      eventBus,
 	}
 }
